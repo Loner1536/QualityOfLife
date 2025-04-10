@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Net Version -->
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>10.0</LangVersion>
+  </PropertyGroup>
+
+  <!-- References -->
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..libs\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..libs\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..libs\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..libs\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..libs\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>..libs/Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>..libs/Il2CppInterop.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..libs/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Packages References -->
+  <ItemGroup>
+    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
+    <PackageReference Include="Lib.Harmony" Version="2.3.5" />
+  </ItemGroup>
+
+  <!-- Auto Add Mod To Mods Folder -->
+  <ItemGroup>
+    <BuildArtifacts Include="$(TargetPath)" />
+    <PluginOutput Include="/home/william/Games/Online-Fix/Schedule I/Mods/" />
+  </ItemGroup>
+
+  <Target Name="Copy and Test" AfterTargets="PostBuildEvent">
+    <Copy
+            DestinationFolder="@(PluginOutput)"
+            OverwriteReadOnlyFiles="true"
+            SkipUnchangedFiles="false"
+            SourceFiles="@(BuildArtifacts)"
+        />
+  </Target>
+
+</Project>
