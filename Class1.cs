@@ -1,9 +1,13 @@
 using MelonLoader;
+using MelonLoader.Utils;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using UnityEngine.Events;
+using Il2CppTMPro;
 using HarmonyLib;
+using Il2CppInterop.Runtime;
 using Il2CppScheduleOne.UI;
+using Il2CppScheduleOne.UI.MainMenu;
 using Il2CppScheduleOne.Product;
 using Il2CppScheduleOne.PlayerScripts;
 
@@ -23,14 +27,6 @@ namespace QualityOfLife
         public const string DownloadLink = null;
     }
 
-    public static class Variables
-    {
-        public static GameObject? quitButton;
-        public static GameObject? creditsButton;
-        public static GameObject? settingsButton;
-        public static GameObject? managerSettingsButton;
-    }
-
     public static class Settings
     {
 
@@ -41,7 +37,6 @@ namespace QualityOfLife
         // Scene Loading
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
-            MelonLogger.Msg($"Scene Loaded: {sceneName}");
             if (sceneName == "Menu")
             {
                 if (GameObject.Find("MainMenu/Home/Bank") == null)
@@ -51,12 +46,25 @@ namespace QualityOfLife
                 }
                 else
                 {
-                    // Define Variables
-                    Variables.settingsButton = GameObject.Find("MainMenu/Home/Bank/Settings");
-                    Variables.creditsButton = GameObject.Find("MainMenu/Home/Bank/Credits");
-                    Variables.quitButton = GameObject.Find("MainMenu/Home/Bank/Quit");
                     // Functions
                     CreateManager();
+                    // Varaibles
+                    GameObject SettingsButton = GameObject.Find("MainMenu/Home/Bank/Settings");
+                    GameObject CreditsButton = GameObject.Find("MainMenu/Home/Bank/Credits");
+                    GameObject QuitButton = GameObject.Find("MainMenu/Home/Bank/Quit");
+                    // Positioning
+                    PositionGameObject(SettingsButton, new Vector2(
+                        SettingsButton.GetComponent<RectTransform>().anchoredPosition.x,
+                        SettingsButton.GetComponent<RectTransform>().anchoredPosition.y - 40f
+                    ));
+                    PositionGameObject(CreditsButton, new Vector2(
+                        CreditsButton.GetComponent<RectTransform>().anchoredPosition.x,
+                        CreditsButton.GetComponent<RectTransform>().anchoredPosition.y - 40f
+                    ));
+                    PositionGameObject(QuitButton, new Vector2(
+                        QuitButton.GetComponent<RectTransform>().anchoredPosition.x,
+                        QuitButton.GetComponent<RectTransform>().anchoredPosition.y - 40f
+                    ));
                 }
             }
         }
@@ -66,130 +74,63 @@ namespace QualityOfLife
             string filePath = System.IO.Path.Combine("UserData", "QualityOfLife.cfg");
             System.IO.File.WriteAllText(filePath, "[Settings]\n");
         }
-        // Public Functions For Small But Useful Features
-        public void ChangeGameObjectName(GameObject gameObject, string newName)
-        {
-            if (gameObject != null)
-            {
-                gameObject.name = newName;
-            }
-            else
-            {
-                MelonLogger.Warning("The provided GameObject is null.");
-            }
-        }
-        // public void ChangeGameObjectText(GameObject gameObject, string newText)
-        // {
-        //     if (gameObject != null)
-        //     {
-        //         Text textComponent = gameObject.GetComponent<>();
-        //         if (textComponent != null)
-        //         {
-        //             textComponent.text = newText;
-        //         }
-        //         else
-        //         {
-        //             MelonLogger.Warning("Text component not found on " + gameObject.name);
-        //         }
-        //     }
-        //     else
-        //     {
-        //         MelonLogger.Warning("The provided GameObject is null.");
-        //     }
-        // }
-        public void ChangeGameObjectPos(GameObject gameObject, int x, int y, int? z = null)
-        {
-
-        }
-        public void ChangeGameObjectParent(GameObject gameObject, Transform parent)
-        {
-            if (gameObject != null && parent != null)
-            {
-                gameObject.transform.SetParent(parent);
-            }
-            else
-            {
-                MelonLogger.Warning("Either the provided GameObject or parent GameObject is null.");
-            }
-        }
-
-        public override void OnUpdate()
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
-            {
-                ToggleMenu();
-            }
-        }
 
         private void CreateManager()
         {
-            if (Variables.settingsButton == null)
+
+            GameObject MainMenu = GameObject.Find("MainMenu");
+            if (MainMenu != null)
             {
-                MelonLogger.Warning("Settings button not found.");
-                return;
+                GameObject SettingsMenu = MainMenu.transform.Find("Settings").gameObject;
+                GameObject ManagerScreen = UnityEngine.Object.Instantiate<GameObject>(SettingsMenu, MainMenu.transform);
+                ManagerScreen.name = "Manager";
+
+                GameObject SettingsButton = MainMenu.transform.Find("Home/Bank/Settings").gameObject;
+                GameObject ManagerButton = UnityEngine.Object.Instantiate<GameObject>(SettingsButton, SettingsButton.transform.parent);
+
+                Button ManagerButtonComponent = ManagerButton.GetComponent<Button>();
+                ManagerButtonComponent.onClick = new Button.ButtonClickedEvent();
+                ManagerButtonComponent.onClick.AddListener(DelegateSupport.ConvertDelegate<UnityAction>(delegate ()
+                {
+                    MainMenuScreen ManagerMainMenuScreenComponent = ManagerScreen.GetComponent<MainMenuScreen>();
+                    if (ManagerMainMenuScreenComponent != null)
+                    {
+                        ManagerMainMenuScreenComponent.Open(true);
+                    }
+                    else
+                    {
+                        MelonLogger.Warning("MainMenuScreen component not found on ModManager!");
+                    }
+                }));
+
+                GameObject ManagerButtonText = ManagerButton.transform.Find("TextContainer").gameObject.transform.Find("Text").gameObject;
+                TextMeshProUGUI ManagerButtonTextComponent = ManagerButtonText.GetComponent<TextMeshProUGUI>();
+                if (ManagerButtonTextComponent != null)
+                {
+                    ManagerButtonTextComponent.text = "Manager";
+                }
+                else
+                {
+                    MelonLogger.Warning("TextMeshProUGUI component not found on ManagerButton!");
+                }
             }
             else
             {
-                Variables.managerSettingsButton = GameObject.Instantiate(Variables.settingsButton.gameObject, Variables.settingsButton.transform.parent);
-            }
-
-            var Settings = Variables.settingsButton;
-            var Manager = Variables.managerSettingsButton;
-
-            RectTransform SettingsRectTransform = Settings.GetComponent<RectTransform>();
-            RectTransform ManagerRectTransform = Manager.GetComponent<RectTransform>();
-            // MANAGER BUTTON
-            if (SettingsRectTransform == null)
-            {
-                MelonLogger.Warning("Failed to get RectTransform components from Settings.");
+                MelonLogger.Warning("MainMenu not found, Please check if the scene is loaded correctly");
                 return;
-            }
-            else if (ManagerRectTransform == null)
-            {
-                MelonLogger.Warning("Failed to get RectTransform components from Manager.");
-            }
-            else
-            {
-                ManagerRectTransform.anchorMin = SettingsRectTransform.anchorMin;
-                ManagerRectTransform.anchorMax = SettingsRectTransform.anchorMax;
-                ManagerRectTransform.pivot = SettingsRectTransform.pivot;
-                ManagerRectTransform.sizeDelta = SettingsRectTransform.sizeDelta;
-
-                Vector2 anchoredPosition = SettingsRectTransform.anchoredPosition;
-                anchoredPosition.y = SettingsRectTransform.sizeDelta.y + -325f;
-                ManagerRectTransform.anchoredPosition = anchoredPosition;
-
-                Vector3 localPosition = Manager.transform.localPosition;
-                localPosition.z = Settings.transform.localPosition.z;
-                Manager.transform.localPosition = localPosition;
-
-                LayoutElement layoutElement = Manager.AddComponent<LayoutElement>();
-                layoutElement.ignoreLayout = true;
-
-                Manager.name = "Manager";
-            }
-            // CREDITS BUTTON
-            if (Variables.creditsButton == null)
-            {
-                MelonLogger.Warning("Credits button not found.");
-                return;
-            }
-            var Credits = Variables.creditsButton;
-
-            RectTransform CreditsRectTransform = Credits.GetComponent<RectTransform>();
-
-            if (CreditsRectTransform == null)
-            {
-                MelonLogger.Warning("Failed to get RectTransform components from Credits.");
             }
         }
 
-        public void ToggleMenu()
+        public void PositionGameObject(GameObject gameObject, Vector2 vector2)
         {
-            GameObject gameObject = GameObject.Find("MainMenu/Home/Bank");
-            if (gameObject != null)
+            RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+            if (rectTransform != null)
             {
-                gameObject.SetActive(!gameObject.activeSelf);
+                rectTransform.anchoredPosition = vector2;
+            }
+            else
+            {
+                MelonLogger.Warning("RectTransform component not found on GameObject!");
             }
         }
     }

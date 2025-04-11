@@ -19,3 +19,4 @@
 /home/william/QualityOfLife/bin/Debug/net6.0/Unity.TextMeshPro.dll
 /home/william/QualityOfLife/bin/Debug/net6.0/UnityEngine.dll
 /home/william/QualityOfLife/bin/Debug/net6.0/UnityEngine.InputLegacyModule.dll
+/home/william/QualityOfLife/obj/Debug/net6.0/QualityOfLife.sourcelink.json
