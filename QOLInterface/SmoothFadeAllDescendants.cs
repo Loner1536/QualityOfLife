@@ -6,17 +6,17 @@ namespace QualityOfLife
 {
     public class SmoothFadeAllDescendants : MelonMod
     {
-        public const float DefaultFadeValue = 0.1f;
+        public const float DefaultFadeValue = 0.25f;
 
         public static void Initialize(GameObject gameObject)
         {
             if (gameObject == null)
             {
-                MelonLogger.Warning("[SmoothFade] Main menu GameObject is null. Initialization aborted.");
+                MelonLogger.Warning("[SmoothFadeAllDescendants] GameObject is null. Initialization aborted.");
                 return;
             }
 
-            MelonLogger.Msg("[SmoothFade] Initializing...");
+            MelonLogger.Msg("[SmoothFadeAllDescendants] Initializing...");
 
             List<Button> allButtons = GetAllButtonsUnder(gameObject);
             foreach (var btn in allButtons)
