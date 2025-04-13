@@ -6,13 +6,11 @@
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
 
-  <!-- NuGet Packages -->
   <ItemGroup>
     <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     <PackageReference Include="Lib.Harmony" Version="2.3.5" />
   </ItemGroup>
 
-  <!-- Game & Unity References -->
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>..libs\Assembly-CSharp.dll</HintPath>
@@ -31,15 +29,19 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="Build">
     <Exec
-            Command="
-      pkill -f 'Schedule I'
-      cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'
-      steam steam://rungameid/3164500
-    "
+            Condition="'$(OS)' == 'Windows_NT'"
+            Command="taskkill /F /IM 'Schedule I.exe' 2>NUL &amp; copy /Y &quot;$(TargetPath)&quot; &quot;%ProgramFiles(x86)%\Steam\steamapps\common\Schedule I\Mods\$(TargetFileName)&quot;"
+        />
+    <Exec
+            Condition="'$(OS)' != 'Windows_NT' AND '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform(`OSX`))' == 'true'"
+            Command="pkill -f 'Schedule I'; cp &quot;$(TargetPath)&quot; &quot;$(HOME)/Library/Application Support/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)&quot;"
+        />
+    <Exec
+            Condition="'$(OS)' != 'Windows_NT' AND '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform(`Linux`))' == 'true'"
+            Command="pkill -f 'Schedule I'; cp &quot;$(TargetPath)&quot; &quot;$(HOME)/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)&quot;"
         />
   </Target>
-
 
 </Project>
