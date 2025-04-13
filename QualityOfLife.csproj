@@ -29,21 +29,26 @@
     </Reference>
   </ItemGroup>
 
-  <!-- Ensure the build.sh script is executable -->
+    <ItemGroup>
+      <None Update="scripts\**\*" Exclude="scripts\**\*" />
+    </ItemGroup>
+
     <Target Name="EnsureBuildScriptExecutable" BeforeTargets="Build">
       <Exec
             Command="test -x ./scripts/build.sh || chmod +x ./scripts/build.sh"
+            Condition="'$(OS)' != 'Windows_NT'"
         />
     </Target>
 
-    <!-- Main Build Target -->
     <Target Name="Build" DependsOnTargets="EnsureBuildScriptExecutable">
-      <!-- Your main build steps go here -->
       <Exec Command="echo Building the project..." />
     </Target>
 
-    <!-- Run build.sh only if the Build is successful -->
     <Target Name="RunBuildScript" DependsOnTargets="Build" AfterTargets="Build">
-      <Exec Command="./scripts/build.sh" />
+      <Exec
+            Command="powershell -ExecutionPolicy ByPass -File ./scripts/build.ps1"
+            Condition="'$(OS)' == 'Windows_NT'"
+        />
+      <Exec Command="./scripts/build.sh" Condition="'$(OS)' != 'Windows_NT'" />
     </Target>
 </Project>
