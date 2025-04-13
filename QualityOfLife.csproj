@@ -29,19 +29,21 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="Build">
-    <Exec
-            Condition="'$(OS)' == 'Windows_NT'"
-            Command="taskkill /F /IM 'Schedule I.exe' 2>NUL &amp; copy /Y &quot;$(TargetPath)&quot; &quot;%ProgramFiles(x86)%\Steam\steamapps\common\Schedule I\Mods\$(TargetFileName)&quot;"
+  <!-- Ensure the build.sh script is executable -->
+    <Target Name="EnsureBuildScriptExecutable" BeforeTargets="Build">
+      <Exec
+            Command="test -x ./scripts/build.sh || chmod +x ./scripts/build.sh"
         />
-    <Exec
-            Condition="'$(OS)' != 'Windows_NT' AND '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform(`OSX`))' == 'true'"
-            Command="pkill -f 'Schedule I'; cp &quot;$(TargetPath)&quot; &quot;$(HOME)/Library/Application Support/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)&quot;"
-        />
-    <Exec
-            Condition="'$(OS)' != 'Windows_NT' AND '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform(`Linux`))' == 'true'"
-            Command="pkill -f 'Schedule I'; cp &quot;$(TargetPath)&quot; &quot;$(HOME)/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)&quot;"
-        />
-  </Target>
+    </Target>
 
+    <!-- Main Build Target -->
+    <Target Name="Build" DependsOnTargets="EnsureBuildScriptExecutable">
+      <!-- Your main build steps go here -->
+      <Exec Command="echo Building the project..." />
+    </Target>
+
+    <!-- Run build.sh only if the Build is successful -->
+    <Target Name="RunBuildScript" DependsOnTargets="Build" AfterTargets="Build">
+      <Exec Command="./scripts/build.sh" />
+    </Target>
 </Project>
