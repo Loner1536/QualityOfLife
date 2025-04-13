@@ -6,7 +6,7 @@ namespace QualityOfLife
 {
     public class SmoothFadeAllDescendants : MelonMod
     {
-        public const float DefaultFadeValue = 0.25f;
+        public const float DefaultFadeValue = 0.1f;
 
         public static void Initialize(GameObject gameObject)
         {
@@ -15,7 +15,6 @@ namespace QualityOfLife
                 MelonLogger.Warning("[SmoothFadeAllDescendants] GameObject is null. Initialization aborted.");
                 return;
             }
-
             MelonLogger.Msg("[SmoothFadeAllDescendants] Initializing...");
 
             List<Button> allButtons = GetAllButtonsUnder(gameObject);

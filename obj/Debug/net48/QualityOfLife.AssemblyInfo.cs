@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QualityOfLife")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d63ca6132179b78ac50a6b20fee7d4b2f7be566e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40be62f5b78274d59e9acc637cac71b8f6e0e8ce")]
 [assembly: System.Reflection.AssemblyProductAttribute("QualityOfLife")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QualityOfLife")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

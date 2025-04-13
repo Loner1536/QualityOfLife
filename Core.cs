@@ -1,5 +1,7 @@
 using MelonLoader;
 using UnityEngine;
+using HarmonyLib;
+using ScheduleOne.UI.MainMenu;
 
 [assembly: MelonInfo(typeof(QualityOfLife.Core), "QualityOfLife", "0.0.1", "Loner")]
 [assembly: MelonGame("TVGS", "Schedule I")]
@@ -9,6 +11,21 @@ namespace QualityOfLife
 {
     public class Core : MelonMod
     {
+        [HarmonyPatch(typeof(Disclaimer), "Awake")]
+        class Disclaimer_Awake_Patch
+        {
+            [HarmonyPrefix]
+            private static void Prefix(Disclaimer __instance)
+            {
+                GameObject DisclaimerText = GameObject.Find("DisclaimerCanvas/Disclaimer/Text (TMP)").gameObject;
+                GameObject.Destroy(DisclaimerText);
+
+                __instance.Duration = 0.01f;
+                var fadeMethod = typeof(Disclaimer).GetMethod("Fade", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                fadeMethod?.Invoke(__instance, null);
+            }
+        }
+
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
             if (sceneName == "Menu")
@@ -27,12 +44,14 @@ namespace QualityOfLife
             }
             else if (sceneName == "Main")
             {
-                GameObject PauseMenuObject = GameObject.Find("UI/PauseMenu");
+                GameObject PauseMenuObject = GameObject.Find("UI/PauseMenu/Container");
                 if (PauseMenuObject == null)
                 {
                     MelonLogger.Warning("[Core] 'PauseMenu' GameObject not found.");
                 }
+                else
                 {
+                    QOLSettings.Initialize(PauseMenuObject);
                     SmoothFadeAllDescendants.Initialize(PauseMenuObject);
                 }
             }
