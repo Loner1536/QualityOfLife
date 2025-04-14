@@ -28,36 +28,26 @@ namespace QualityOfLife
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
-            if (sceneName == "Menu")
-            {
-                GameObject MainMenuObject = GameObject.Find("MainMenu");
+            var prefabString = string.Empty;
 
-                if (MainMenuObject == null)
-                {
-                    MelonLogger.Warning("[Core] 'MainMenu' GameObject not found.");
-                }
-                else
-                {
-                    QOLSettings.Initialize(MainMenuObject);
-                    SmoothFadeAllDescendants.Initialize(MainMenuObject);
-                }
-            }
+            if (sceneName == "Menu")
+                prefabString = "MainMenu";
             else if (sceneName == "Main")
+                prefabString = "UI/PauseMenu/Container";
+
+            if (string.IsNullOrEmpty(prefabString))
             {
-                GameObject PauseMenuObject = GameObject.Find("UI/PauseMenu/Container");
-                if (PauseMenuObject == null)
+                GameObject prefabObject = GameObject.Find(prefabString);
+
+                if (prefabObject == null)
                 {
-                    MelonLogger.Warning("[Core] 'PauseMenu' GameObject not found.");
+                    MelonLogger.Warning($"[Core] {prefabString} GameObject not found.");
                 }
                 else
                 {
-                    QOLSettings.Initialize(PauseMenuObject);
-                    SmoothFadeAllDescendants.Initialize(PauseMenuObject);
+                    QOLSettings.Initialize(prefabObject);
+                    SmoothFadeAllDescendants.Initialize(prefabObject);
                 }
-            }
-            else
-            {
-                MelonLogger.Msg($"[Core] Scene '{sceneName}' loaded.");
             }
         }
 
