@@ -31,7 +31,6 @@
 
     <ItemGroup>
       <None Remove="scripts\**\*" />
-      <None Remove=".gitignore" />
     </ItemGroup>
 
 
