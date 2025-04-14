@@ -30,8 +30,9 @@
   </ItemGroup>
 
     <ItemGroup>
-      <None Update="scripts\**\*" Exclude="scripts\**\*" />
+      <None Remove="scripts\**\*" />
     </ItemGroup>
+
 
     <Target Name="EnsureBuildScriptExecutable" BeforeTargets="Build">
       <Exec
