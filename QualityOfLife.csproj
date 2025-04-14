@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>10.0</LangVersion>
     <OutputPath>bin/Release/</OutputPath>
   </PropertyGroup>
@@ -14,25 +13,20 @@
 
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..libs/Assembly-CSharp.dll</HintPath>
+      <HintPath>libs/Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..libs/UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>libs/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..libs/UnityEngine.UI.dll</HintPath>
+      <HintPath>libs/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>..libs/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>libs/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>..libs/UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>libs/UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="scripts/***" />
-    <None Remove=".gitignore" />
   </ItemGroup>
 
   <Target Name="PostBuildActions" AfterTargets="Build">
@@ -40,6 +34,8 @@
       <DllName>$(AssemblyName).dll</DllName>
       <GameModsFolder
             >$(HOME)/.steam/steam/steamapps/common/Schedule I/Mods</GameModsFolder>
+      <GameProcessName>ScheduleI</GameProcessName>
+      <SteamAppID>3164500</SteamAppID>
     </PropertyGroup>
 
     <Message Text="Copying DLL to $(GameModsFolder)..." Importance="high" />
@@ -49,8 +45,18 @@
             SkipUnchangedFiles="true"
         />
 
+    <Message
+            Text="Checking if $(GameProcessName) is running..."
+            Importance="high"
+        />
+    <Exec
+            Command="bash -c &quot;if pgrep -x '$(GameProcessName)' &gt; /dev/null; then echo 'Game is running. Restarting...'; pkill -x '$(GameProcessName)'; sleep 2; fi&quot;"
+        />
+
     <Message Text="Launching Schedule I via Steam..." Importance="high" />
-    <Exec Command="bash -c &quot;/usr/bin/steam -applaunch 3164500&quot;" />
+    <Exec
+            Command="bash -c &quot;/usr/bin/steam -applaunch $(SteamAppID)&quot;"
+        />
   </Target>
 
 </Project>

@@ -1,6 +1,7 @@
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 namespace QualityOfLife
 {
