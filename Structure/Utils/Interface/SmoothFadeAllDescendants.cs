@@ -1,11 +1,10 @@
-using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-namespace QualityOfLife
+namespace Core.InterfaceUtils
 {
-    public class SmoothFadeAllDescendants : MelonMod
+    public static class Fades
     {
         public const float DefaultFadeValue = 0.1f;
 
@@ -13,15 +12,16 @@ namespace QualityOfLife
         {
             if (gameObject == null)
             {
-                MelonLogger.Warning("[SmoothFadeAllDescendants] GameObject is null. Initialization aborted.");
+                Debug.LogWarning("[Animations] GameObject is null. Initialization aborted.");
                 return;
             }
-            MelonLogger.Msg("[SmoothFadeAllDescendants] Initializing...");
+
+            Debug.Log("[Animations] Initializing smooth fade on all descendant buttons...");
 
             List<Button> allButtons = GetAllButtonsUnder(gameObject);
-            foreach (var btn in allButtons)
+            foreach (var button in allButtons)
             {
-                SetFadeValue(btn);
+                SetFadeValue(button);
             }
         }
 

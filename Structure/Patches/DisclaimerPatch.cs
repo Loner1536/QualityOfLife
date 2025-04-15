@@ -2,7 +2,7 @@ using UnityEngine;
 using HarmonyLib;
 using ScheduleOne.UI.MainMenu;
 
-namespace QualityOfLife
+namespace Core.Patches
 {
     [HarmonyPatch(typeof(Disclaimer), "Awake")]
     class Disclaimer_Awake_Patch
