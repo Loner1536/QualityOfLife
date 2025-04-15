@@ -14,7 +14,7 @@ namespace Core.Shared
             {
                 case "Main":
                 case "Tutorial":
-                    settingsObjectName = "Settings_Ingame";
+                    settingsObjectName = "SettingsScreen_Ingame";
                     break;
                 case "Menu":
                     settingsObjectName = "Settings";

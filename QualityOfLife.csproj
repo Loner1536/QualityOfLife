@@ -9,11 +9,17 @@
   <ItemGroup>
     <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     <PackageReference Include="Lib.Harmony" Version="2.3.5" />
+    <PackageReference
+            Include="BepInEx.AssemblyPublicizer.MSBuild"
+            Version="0.5.0-beta.1"
+            PrivateAssets="all"
+        />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>libs/Assembly-CSharp.dll</HintPath>
+      <Publicize>true</Publicize>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>libs/UnityEngine.CoreModule.dll</HintPath>
@@ -27,17 +33,15 @@
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>libs/UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
+    <Reference Include="FishNet.Runtime">
+      <HintPath>path\to\FishNet.Runtime.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec
-            Command="
-        pkill -f 'Schedule I'
-        cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'
-        steam steam://rungameid/3164500
-      "
+    <Exec
+            Command="&#xA;        pkill -f 'Schedule I'&#xA;        cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'&#xA;        steam steam://rungameid/3164500&#xA;      "
         />
-
-    </Target>
+  </Target>
 
 </Project>
