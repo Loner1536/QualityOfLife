@@ -9,12 +9,21 @@ namespace Core.Shared
     {
         public static void Initialize(GameObject root, string sceneName)
         {
-            string settingsObjectName = sceneName switch
+            string settingsObjectName;
+            switch (sceneName)
             {
-                "Main" or "Tutorial" => "Settings_Ingame",
-                "Menu" => "Settings",
-                _ => null
-            };
+                case "Main":
+                case "Tutorial":
+                    settingsObjectName = "Settings_Ingame";
+                    break;
+                case "Menu":
+                    settingsObjectName = "Settings";
+                    break;
+                default:
+                    settingsObjectName = null;
+                    break;
+            }
+
 
             if (settingsObjectName != null)
             {
