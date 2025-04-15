@@ -15,14 +15,12 @@ namespace Core
             sceneInitTable = new Dictionary<string, SceneInitSet>();
 
             var mainAndTutorialInit = new SceneInitSet("UI/PauseMenu/Container");
-            mainAndTutorialInit.Actions.Add((go) => MelonLogger.Msg("UIUtils: Smooth fade"));
-            mainAndTutorialInit.Actions.Add((go) => Core.InterfaceUtils.Fades.Initialize(go));
-            mainAndTutorialInit.Actions.Add((go) => MelonLogger.Msg("Executing action: Main/Tutorial only action"));
+            mainAndTutorialInit.Actions.Add((PauseMenu, sceneName) => Core.Utils.UI.Fading.FadeDependenciesButtons(PauseMenu));
+            mainAndTutorialInit.Actions.Add((PauseMenu, sceneName) => Core.Shared.Settings.Initialize(PauseMenu, sceneName));
 
             var menuInit = new SceneInitSet("MainMenu");
-            menuInit.Actions.Add((go) => MelonLogger.Msg("UIUtils: Smooth fade"));
-            menuInit.Actions.Add((go) => Core.InterfaceUtils.Fades.Initialize(go));
-            menuInit.Actions.Add((go) => MelonLogger.Msg("Menu only: Init logic"));
+            menuInit.Actions.Add((MainMenu, sceneName) => Core.Utils.UI.Fading.FadeDependenciesButtons(MainMenu));
+            menuInit.Actions.Add((MainMenu, sceneName) => Core.Shared.Settings.Initialize(MainMenu, sceneName));
 
             sceneInitTable["Menu"] = menuInit;
             sceneInitTable["Main"] = mainAndTutorialInit;
@@ -32,19 +30,12 @@ namespace Core
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
             if (initializedScenes.Contains(sceneName))
-            {
-                MelonLogger.Msg($"[Core] {sceneName} already initialized. Skipping.");
                 return;
-            }
 
             if (sceneInitTable.TryGetValue(sceneName, out var initSet))
             {
-                InitializeScene(initSet.ObjectPath, initSet.GetAllActions());
+                InitializeScene(initSet.ObjectPath, initSet.GetAllActions(), sceneName);
                 initializedScenes.Add(sceneName);
-            }
-            else
-            {
-                MelonLogger.Msg($"[Core] No initialization registered for scene '{sceneName}'");
             }
         }
 
@@ -56,18 +47,14 @@ namespace Core
             }
         }
 
-        private void InitializeScene(string objectPath, IEnumerable<Action<GameObject>> actions)
+        private void InitializeScene(string objectPath, IEnumerable<Action<GameObject, string>> actions, string sceneName)
         {
             GameObject sceneObject = GameObject.Find(objectPath);
-            if (sceneObject == null)
-            {
-                MelonLogger.Warning($"[Core] {objectPath} GameObject not found in scene.");
-                return;
-            }
+            if (sceneObject == null) return;
 
             foreach (var action in actions)
             {
-                action?.Invoke(sceneObject);
+                action?.Invoke(sceneObject, sceneName);
             }
         }
     }
@@ -75,14 +62,14 @@ namespace Core
     class SceneInitSet
     {
         public string ObjectPath;
-        public List<Action<GameObject>> Actions = new List<Action<GameObject>>();
+        public List<Action<GameObject, string>> Actions = new List<Action<GameObject, string>>();
 
         public SceneInitSet(string objectPath)
         {
             ObjectPath = objectPath;
         }
 
-        public IEnumerable<Action<GameObject>> GetAllActions()
+        public IEnumerable<Action<GameObject, string>> GetAllActions()
         {
             foreach (var action in Actions)
                 yield return action;

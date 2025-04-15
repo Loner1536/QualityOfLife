@@ -29,34 +29,15 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuildActions" AfterTargets="Build">
-    <PropertyGroup>
-      <DllName>$(AssemblyName).dll</DllName>
-      <GameModsFolder
-            >$(HOME)/.steam/steam/steamapps/common/Schedule I/Mods</GameModsFolder>
-      <GameProcessName>ScheduleI</GameProcessName>
-      <SteamAppID>3164500</SteamAppID>
-    </PropertyGroup>
-
-    <Message Text="Copying DLL to $(GameModsFolder)..." Importance="high" />
-    <Copy
-            SourceFiles="$(OutputPath)$(DllName)"
-            DestinationFolder="$(GameModsFolder)"
-            SkipUnchangedFiles="true"
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec
+            Command="
+        pkill -f 'Schedule I'
+        cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'
+        steam steam://rungameid/3164500
+      "
         />
 
-    <Message
-            Text="Checking if $(GameProcessName) is running..."
-            Importance="high"
-        />
-    <Exec
-            Command="bash -c &quot;if pgrep -x '$(GameProcessName)' &gt; /dev/null; then echo 'Game is running. Restarting...'; pkill -x '$(GameProcessName)'; sleep 2; fi&quot;"
-        />
-
-    <Message Text="Launching Schedule I via Steam..." Importance="high" />
-    <Exec
-            Command="bash -c &quot;/usr/bin/steam -applaunch $(SteamAppID)&quot;"
-        />
-  </Target>
+    </Target>
 
 </Project>
