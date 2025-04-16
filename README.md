@@ -21,8 +21,6 @@ This mod is compatible with any version of Schedule I that is using Mono and Mel
 
 - **Developer**: Loner
 
-This mod is open source, and anyone can modify it as they see fit, just don't steal my code 1/1.
-
 ## License
 
 No specific license. You are free to use and modify the mod, but please don't directly copy the code.
