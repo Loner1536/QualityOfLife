@@ -5,6 +5,7 @@ This mod enhances your gaming experience with several quality-of-life improvemen
 - **Higher FPS Limit (up to 360 FPS)**: Removes the default FPS cap and allows the game to run up to 360 frames per second, ensuring a smoother experience for those with high-refresh-rate monitors.
 - **Always Show Contract Distance**: Displays the distance to your contract permanently on the compass for better navigation.
 - **Contract Compass Colors**: Changes the contract on the compass to the color of the current time frame, so if its about to expire then its red, if its not time then its grey etc.
+- **Fast Stack Tweak**: Adds Ctrl + Mouse Wheel to increment or decrement stack counts by 5 per scroll step. In the future I plan to add it where you can also do Ctrl + Shift + Right-Click to quick move 5 from the stack.
 
 ## Installation
 
