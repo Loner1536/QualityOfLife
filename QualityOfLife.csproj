@@ -3,8 +3,14 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>10.0</LangVersion>
-    <OutDir>bin\BuildTemp\</OutDir> <!-- optional, just to avoid pollution -->
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="src\**\*.cs" />
+
+    <None Include="README.md" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
@@ -41,25 +47,13 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuildCopyDllOnly" AfterTargets="Build">
-    <!-- Make sure 'Release/' folder exists -->
-    <MakeDir Directories="Release" />
-
-    <!-- Copy only the .dll file -->
-    <Copy
-            SourceFiles="$(TargetPath)"
-            DestinationFolder="Release"
-            SkipUnchangedFiles="true"
-        />
-  </Target>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec
             Command="
-        pkill -f 'Schedule I'
-        cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'
-        steam steam://rungameid/3164500
-      "
+      pkill -f 'Schedule I'
+      cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'
+      steam steam://rungameid/3164500
+    "
         />
   </Target>
 
