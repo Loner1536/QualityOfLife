@@ -3,8 +3,8 @@
 This mod enhances your gaming experience with several quality-of-life improvements:
 - **Button Fades**: Adds a smooth fade effect to buttons, making the UI more visually appealing.
 - **Higher FPS Limit (up to 360 FPS)**: Removes the default FPS cap and allows the game to run up to 360 frames per second, ensuring a smoother experience for those with high-refresh-rate monitors.
-- **Always Show Contract Distance**: Displays the distance to your contract targets permanently on the screen for better navigation and strategy planning.
-- **Contract Compass Colors**: Changes the color of the compass for contract objectives, making it easier to distinguish contract directions at a glance.
+- **Always Show Contract Distance**: Displays the distance to your contract permanently on the compass for better navigation.
+- **Contract Compass Colors**: Changes the contract on the compass to the color of the current time frame, so if its about to expire then its red, if its not time then its grey etc.
 
 ## Installation
 
