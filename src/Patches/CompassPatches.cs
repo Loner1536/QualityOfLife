@@ -9,11 +9,11 @@ namespace Core.Patches
     [HarmonyPatch(typeof(CompassManager))]
     public class CompassPatches
     {
-        [HarmonyPatch(nameof(CompassManager.UpdateElement))]
         [HarmonyPostfix]
+        [HarmonyPatch(nameof(CompassManager.UpdateElement))]
         private static void Postfix(CompassManager.Element element)
         {
-            if (!element.Visible || element.Transform == null) return;
+            if (!element.Visible || !element.Transform) return;
 
             var playerPosition = PlayerSingleton<PlayerCamera>.Instance.transform.position;
             var elementPosition = element.Transform.position;

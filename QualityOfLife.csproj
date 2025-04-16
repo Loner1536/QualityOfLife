@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>10.0</LangVersion>
-    <OutputPath>bin/Release/</OutputPath>
+    <OutDir>bin\BuildTemp\</OutDir> <!-- optional, just to avoid pollution -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +24,9 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>libs/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>libs/UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>libs/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -38,9 +41,25 @@
     </Reference>
   </ItemGroup>
 
+  <Target Name="PostBuildCopyDllOnly" AfterTargets="Build">
+    <!-- Make sure 'Release/' folder exists -->
+    <MakeDir Directories="Release" />
+
+    <!-- Copy only the .dll file -->
+    <Copy
+            SourceFiles="$(TargetPath)"
+            DestinationFolder="Release"
+            SkipUnchangedFiles="true"
+        />
+  </Target>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec
-            Command="&#xA;        pkill -f 'Schedule I'&#xA;        cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'&#xA;        steam steam://rungameid/3164500&#xA;      "
+            Command="
+        pkill -f 'Schedule I'
+        cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'
+        steam steam://rungameid/3164500
+      "
         />
   </Target>
 

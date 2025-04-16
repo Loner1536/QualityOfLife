@@ -17,6 +17,7 @@ namespace ContractCompassMarkersPatch
             yield return AccessTools.Method(typeof(Contract), "CheckExpiry");
         }
 
+        [HarmonyPostfix]
         private static void Postfix(MethodBase __originalMethod, Contract __instance)
         {
             if (__originalMethod.Name == "Start")

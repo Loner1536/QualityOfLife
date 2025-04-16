@@ -8,8 +8,8 @@ namespace Core.Patches
     [HarmonyPatch(typeof(Disclaimer))]
     public class DisclaimerPatches
     {
-        [HarmonyPatch(nameof(Disclaimer.Awake))]
         [HarmonyPrefix]
+        [HarmonyPatch(nameof(Disclaimer.Awake))]
         private static void Prefix(Disclaimer __instance)
         {
             var disclaimerText = GameObject.Find("DisclaimerCanvas/Disclaimer/Text (TMP)");
