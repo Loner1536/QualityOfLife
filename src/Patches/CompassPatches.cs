@@ -11,7 +11,7 @@ namespace Core.Patches
     {
         [HarmonyPostfix]
         [HarmonyPatch(nameof(CompassManager.UpdateElement))]
-        private static void Postfix(CompassManager.Element element)
+        private static void ShowDistanceAllTimesPatch(CompassManager.Element element)
         {
             if (!element.Visible || !element.Transform) return;
 

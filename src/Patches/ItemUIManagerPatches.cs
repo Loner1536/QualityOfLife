@@ -16,7 +16,7 @@ namespace Core.Patches
 
         [HarmonyPostfix]
         [HarmonyPatch(nameof(ItemUIManager.Update))]
-        private static void PostfixUpdate(ItemUIManager __instance)
+        private static void ItemStepPatch(ItemUIManager __instance)
         {
             bool ctrl = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
             bool shift = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);

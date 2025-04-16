@@ -10,7 +10,7 @@ namespace Core.Patches
     {
         [HarmonyPrefix]
         [HarmonyPatch(nameof(Disclaimer.Awake))]
-        private static void Prefix(Disclaimer __instance)
+        private static void SkipDisclaimerPatch(Disclaimer __instance)
         {
             var disclaimerText = GameObject.Find("DisclaimerCanvas/Disclaimer/Text (TMP)");
             if (disclaimerText != null)
