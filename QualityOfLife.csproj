@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Compile Include="src\**\*.cs" />
-
-    <None Include="README.md" />
   </ItemGroup>
 
   <ItemGroup>

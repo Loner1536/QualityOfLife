@@ -15,7 +15,7 @@ This mod enhances your gaming experience with several quality-of-life improvemen
 
 ## Compatibility
 
-This mod is compatible with any game that works with MelonLoader. Ensure your game is updated to the latest patch for optimal performance.
+This mod is compatible with any version of Schedule I that is using Mono and MelonLoader, But I recommend your game is updated to the latest patch for optimal performance.
 
 ## Credits
 
