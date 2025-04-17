@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-namespace Core.Utils.UI
+namespace QualityOfLife.Utils.UI
 {
     public static class Fading
     {

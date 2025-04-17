@@ -1,17 +1,17 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using MelonLoader;
+using UnityEngine;
 
-namespace Core.Shared.SettingsModules
+namespace QualityOfLife.Modules.Settings;
+
+public static class Graphics
 {
-    public static class Graphics
+    public static List<Action<GameObject>> GetInitializers()
     {
-        public static List<Action<GameObject>> GetInitializers()
+        return new List<Action<GameObject>>
         {
-            return new List<Action<GameObject>>
-            {
-                (go) => Debug.Log("[Settings] Initializing Graphics settings...")
-            };
-        }
+            (settingsMenu) => MelonLogger.Msg("[Settings] Initializing Graphics settings...")
+        };
     }
 }

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using MelonLoader;
 using UnityEngine;
 
-namespace QualityOfLife.Modules.Settings;
+namespace QualityOfLife.Modules.ModManager;
 
-public static class Audio
+public static class Mods
 {
     public static List<Action<GameObject>> GetInitializers()
     {
         return new List<Action<GameObject>>
         {
-            (settingsMenu) => MelonLogger.Msg("[Settings] Initializing Audio settings...")
+            (mainMenu) => MelonLogger.Msg("[ModManager] Initializing Mods...")
         };
     }
 }

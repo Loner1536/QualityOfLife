@@ -3,54 +3,52 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace Core.Shared
+namespace QualityOfLife.Shared;
+
+public static class Settings
 {
-    public static class Settings
+    public static void Initialize(GameObject root, string sceneName)
     {
-        public static void Initialize(GameObject root, string sceneName)
+        string settingsObjectName;
+        switch (sceneName)
         {
-            string settingsObjectName;
-            switch (sceneName)
+            case "Main":
+            case "Tutorial":
+                settingsObjectName = "SettingsScreen_Ingame";
+                break;
+            case "Menu":
+                settingsObjectName = "Settings";
+                break;
+            default:
+                settingsObjectName = null;
+                break;
+        }
+
+        if (settingsObjectName != null)
+        {
+            GameObject settingsMenu = root.transform.Find(settingsObjectName)?.gameObject;
+
+            if (settingsMenu != null)
             {
-                case "Main":
-                case "Tutorial":
-                    settingsObjectName = "SettingsScreen_Ingame";
-                    break;
-                case "Menu":
-                    settingsObjectName = "Settings";
-                    break;
-                default:
-                    settingsObjectName = null;
-                    break;
-            }
+                var allActions = new List<Action<GameObject>>();
+                allActions.AddRange(QualityOfLife.Modules.Settings.Display.GetInitializers());
+                allActions.AddRange(QualityOfLife.Modules.Settings.Graphics.GetInitializers());
+                allActions.AddRange(QualityOfLife.Modules.Settings.Audio.GetInitializers());
+                allActions.AddRange(QualityOfLife.Modules.Settings.Controls.GetInitializers());
 
-
-            if (settingsObjectName != null)
-            {
-                GameObject settingsMenu = root.transform.Find(settingsObjectName)?.gameObject;
-
-                if (settingsMenu != null)
+                foreach (var action in allActions)
                 {
-                    var allActions = new List<Action<GameObject>>();
-                    allActions.AddRange(Core.Shared.SettingsModules.Display.GetInitializers());
-                    allActions.AddRange(Core.Shared.SettingsModules.Graphics.GetInitializers());
-                    allActions.AddRange(Core.Shared.SettingsModules.Audio.GetInitializers());
-                    allActions.AddRange(Core.Shared.SettingsModules.Controls.GetInitializers());
-
-                    foreach (var action in allActions)
-                    {
-                        action?.Invoke(settingsMenu);
-                    }
-                }
-                else
-                {
-                    MelonLogger.Warning($"[Settings] {settingsObjectName} GameObject not found. Skipping initialization.");
+                    action?.Invoke(settingsMenu);
                 }
             }
             else
             {
-                MelonLogger.Warning($"[Settings] No valid settings menu for scene '{sceneName}'. Skipping initialization.");
+                MelonLogger.Warning($"[Settings] {settingsObjectName} GameObject not found. Skipping initialization.");
             }
+        }
+        else
+        {
+            MelonLogger.Warning($"[Settings] No valid settings menu for scene '{sceneName}'. Skipping initialization.");
         }
     }
 }

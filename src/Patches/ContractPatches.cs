@@ -3,15 +3,19 @@ using ScheduleOne.Quests;
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Reflection;
 
-namespace Core.Patches;
+namespace QualityOfLife.Patches;
 
-[HarmonyPatch(typeof(Contract))]
-public class ContractPatches
+[HarmonyPatch]
+public class ContractStartPatch
 {
+    [HarmonyTargetMethod]
+    public static MethodBase TargetMethod() =>
+        AccessTools.Method(typeof(Contract), nameof(Contract.Start));
+
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(Contract.Start))]
-    private static void Start_Postfix(Contract __instance)
+    public static void Postfix(Contract __instance)
     {
         foreach (var questEntry in __instance.Entries)
         {
@@ -21,10 +25,17 @@ public class ContractPatches
             }
         }
     }
+}
+
+[HarmonyPatch]
+public class ContractCheckExpiryPatch
+{
+    [HarmonyTargetMethod]
+    public static MethodBase TargetMethod() =>
+        AccessTools.Method(typeof(Contract), nameof(Contract.CheckExpiry));
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(Contract.CheckExpiry))]
-    private static void CheckExpiry_Postfix(Contract __instance)
+    public static void Postfix(Contract __instance)
     {
         foreach (var questEntry in __instance.Entries)
         {
@@ -52,12 +63,10 @@ public class ContractPatches
                     backgroundColor = new Color(0.4f, 0.8f, 0.4f, 0.8f);
                 }
 
-                Image fillImage = fill.GetComponent<Image>();
-                if (fillImage != null)
+                if (fill.TryGetComponent(out Image fillImage))
                     fillImage.color = Color.white;
 
-                Image bgImage = background.GetComponent<Image>();
-                if (bgImage != null)
+                if (background.TryGetComponent(out Image bgImage))
                     bgImage.color = backgroundColor;
 
                 questEntry.compassElement.Visible =

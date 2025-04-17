@@ -3,9 +3,9 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace Core
+namespace QualityOfLife
 {
-    public class QualityOfLife : MelonMod
+    public class Core : MelonMod
     {
         private Dictionary<string, SceneInitSet> sceneInitTable;
         private HashSet<string> initializedScenes = new HashSet<string>();
@@ -15,12 +15,14 @@ namespace Core
             sceneInitTable = new Dictionary<string, SceneInitSet>();
 
             var mainAndTutorialInit = new SceneInitSet("UI/PauseMenu/Container");
-            mainAndTutorialInit.Actions.Add((PauseMenu, sceneName) => Core.Utils.UI.Fading.FadeDependenciesButtons(PauseMenu));
-            mainAndTutorialInit.Actions.Add((PauseMenu, sceneName) => Core.Shared.Settings.Initialize(PauseMenu, sceneName));
+            mainAndTutorialInit.Actions.Add((PauseMenu, sceneName) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(PauseMenu));
+            mainAndTutorialInit.Actions.Add((PauseMenu, sceneName) => QualityOfLife.Shared.Settings.Initialize(PauseMenu, sceneName));
 
             var menuInit = new SceneInitSet("MainMenu");
-            menuInit.Actions.Add((MainMenu, sceneName) => Core.Utils.UI.Fading.FadeDependenciesButtons(MainMenu));
-            menuInit.Actions.Add((MainMenu, sceneName) => Core.Shared.Settings.Initialize(MainMenu, sceneName));
+            menuInit.Actions.Add((MainMenu, _) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(MainMenu));
+            menuInit.Actions.Add((MainMenu, sceneName) => QualityOfLife.Shared.Settings.Initialize(MainMenu, sceneName));
+            menuInit.Actions.Add((MainMenu, _) => QualityOfLife.Menu.Core.Initialize(MainMenu));
+
 
             sceneInitTable["Menu"] = menuInit;
             sceneInitTable["Main"] = mainAndTutorialInit;

@@ -3,7 +3,7 @@ using HarmonyLib;
 using ScheduleOne.UI.MainMenu;
 using System.Reflection;
 
-namespace Core.Patches;
+namespace QualityOfLife.Patches;
 
 [HarmonyPatch(typeof(Disclaimer))]
 public class DisclaimerPatches

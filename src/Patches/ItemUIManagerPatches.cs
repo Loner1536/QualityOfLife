@@ -5,7 +5,7 @@ using UnityEngine;
 using HarmonyLib;
 using System.Collections.Generic;
 
-namespace Core.Patches;
+namespace QualityOfLife.Patches;
 
 [HarmonyPatch(typeof(ItemUIManager))]
 public class ItemUIManagerPatches

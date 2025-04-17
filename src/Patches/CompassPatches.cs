@@ -4,7 +4,7 @@ using ScheduleOne.UI.Compass;
 using UnityEngine;
 using HarmonyLib;
 
-namespace Core.Patches;
+namespace QualityOfLife.Patches;
 
 [HarmonyPatch(typeof(CompassManager))]
 public class CompassPatches
