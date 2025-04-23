@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="src\**\*.cs" />
+    <Compile Include="src/**/*.cs" />
   </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
@@ -34,14 +35,17 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>libs/UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>libs/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>libs/UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>libs/UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>libs/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
     <Reference Include="FishNet.Runtime">
-      <HintPath>path\to\FishNet.Runtime.dll</HintPath>
+      <HintPath>libs/FishNet.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
 

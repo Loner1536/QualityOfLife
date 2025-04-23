@@ -9,9 +9,9 @@ public static class Controls
 {
     public static List<Action<GameObject>> GetInitializers()
     {
-        return new List<Action<GameObject>>
-        {
-            (settingsMenu) => MelonLogger.Msg("[Settings] Initializing Controls settings...")
-        };
+        var initializers = new List<Action<GameObject>>
+        { };
+
+        return initializers;
     }
 }

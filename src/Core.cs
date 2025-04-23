@@ -3,78 +3,92 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace QualityOfLife
+namespace QualityOfLife;
+
+public class Core : MelonMod
 {
-    public class Core : MelonMod
+    private Dictionary<string, SceneInitSet> sceneInitTable;
+    private HashSet<string> initializedScenes = new();
+
+    public override void OnInitializeMelon()
     {
-        private Dictionary<string, SceneInitSet> sceneInitTable;
-        private HashSet<string> initializedScenes = new HashSet<string>();
-
-        public override void OnInitializeMelon()
+        MelonLogger.Msg($"{QualityOfLife.BuildInfo.Name} {QualityOfLife.BuildInfo.Version} initializing...");
+        sceneInitTable = new Dictionary<string, SceneInitSet>
         {
-            sceneInitTable = new Dictionary<string, SceneInitSet>();
-
-            var mainAndTutorialInit = new SceneInitSet("UI/PauseMenu/Container");
-            mainAndTutorialInit.Actions.Add((PauseMenu, sceneName) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(PauseMenu));
-            mainAndTutorialInit.Actions.Add((PauseMenu, sceneName) => QualityOfLife.Shared.Settings.Initialize(PauseMenu, sceneName));
-
-            var menuInit = new SceneInitSet("MainMenu");
-            menuInit.Actions.Add((MainMenu, _) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(MainMenu));
-            menuInit.Actions.Add((MainMenu, sceneName) => QualityOfLife.Shared.Settings.Initialize(MainMenu, sceneName));
-            menuInit.Actions.Add((MainMenu, _) => QualityOfLife.Menu.Core.Initialize(MainMenu));
-
-
-            sceneInitTable["Menu"] = menuInit;
-            sceneInitTable["Main"] = mainAndTutorialInit;
-            sceneInitTable["Tutorial"] = mainAndTutorialInit;
-        }
-
-        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
-        {
-            if (initializedScenes.Contains(sceneName))
-                return;
-
-            if (sceneInitTable.TryGetValue(sceneName, out var initSet))
+            ["Menu"] = new SceneInitSet("MainMenu")
             {
-                InitializeScene(initSet.ObjectPath, initSet.GetAllActions(), sceneName);
-                initializedScenes.Add(sceneName);
-            }
-        }
-
-        public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
-        {
-            if (initializedScenes.Contains(sceneName))
+                Actions = new()
+                    {
+                        (mainMenu, _) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(mainMenu),
+                        (mainMenu, scene) => QualityOfLife.Shared.Settings.Initialize(mainMenu, scene),
+                        (mainMenu, _) => QualityOfLife.Menu.Core.Initialize(mainMenu),
+                        (_, _) => QualityOfLife.IconLoaders.Core.Initilize()
+                    },
+                CleanupActions = new()
+                { }
+            },
+            ["Main"] = new SceneInitSet("UI/PauseMenu/Container")
             {
-                initializedScenes.Remove(sceneName);
+                Actions = new()
+                    {
+                        (pauseMenu, scene) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(pauseMenu),
+                        (pauseMenu, scene) => QualityOfLife.Shared.Settings.Initialize(pauseMenu, scene)
+                    },
+                CleanupActions = new()
+                { }
+            },
+            ["Tutorial"] = new SceneInitSet("UI/PauseMenu/Container")
+            {
+                Actions = new()
+                    {
+                        (pauseMenu, scene) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(pauseMenu),
+                        (pauseMenu, scene) => QualityOfLife.Shared.Settings.Initialize(pauseMenu, scene)
+                    },
+                CleanupActions = new()
+                { }
             }
-        }
+        };
+    }
 
-        private void InitializeScene(string objectPath, IEnumerable<Action<GameObject, string>> actions, string sceneName)
+    public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+    {
+        if (initializedScenes.Contains(sceneName)) return;
+
+        if (sceneInitTable.TryGetValue(sceneName, out var initSet))
         {
-            GameObject sceneObject = GameObject.Find(objectPath);
+            GameObject sceneObject = GameObject.Find(initSet.ObjectPath);
             if (sceneObject == null) return;
 
-            foreach (var action in actions)
-            {
+            foreach (var action in initSet.Actions)
                 action?.Invoke(sceneObject, sceneName);
-            }
+
+            initializedScenes.Add(sceneName);
         }
     }
 
-    class SceneInitSet
+    public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
     {
-        public string ObjectPath;
-        public List<Action<GameObject, string>> Actions = new List<Action<GameObject, string>>();
+        if (!initializedScenes.Remove(sceneName)) return;
 
-        public SceneInitSet(string objectPath)
+        if (sceneInitTable.TryGetValue(sceneName, out var initSet))
         {
-            ObjectPath = objectPath;
-        }
+            GameObject sceneObject = GameObject.Find(initSet.ObjectPath);
+            if (sceneObject == null) return;
 
-        public IEnumerable<Action<GameObject, string>> GetAllActions()
-        {
-            foreach (var action in Actions)
-                yield return action;
+            foreach (var cleanup in initSet.CleanupActions)
+                cleanup?.Invoke(sceneObject);
         }
+    }
+}
+
+class SceneInitSet
+{
+    public string ObjectPath;
+    public List<Action<GameObject, string>> Actions = new();
+    public List<Action<GameObject>> CleanupActions = new();
+
+    public SceneInitSet(string objectPath)
+    {
+        ObjectPath = objectPath;
     }
 }

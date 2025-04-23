@@ -1,8 +1,14 @@
 using ScheduleOne.DevUtilities;
 using ScheduleOne.PlayerScripts;
 using ScheduleOne.UI.Compass;
+using ScheduleOne.Quests;
 using UnityEngine;
+using UnityEngine.UI;
 using HarmonyLib;
+using System.Linq;
+using System.Collections.Generic;
+
+using QualityOfLife.Utils.Products;
 
 namespace QualityOfLife.Patches;
 

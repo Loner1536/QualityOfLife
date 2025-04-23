@@ -10,15 +10,16 @@ public static class Display
 {
     public static List<Action<GameObject>> GetInitializers()
     {
-        return new List<Action<GameObject>>
+        var initializers = new List<Action<GameObject>>
         {
-            (settingsMenu) => InitializeFPSLimiter(settingsMenu)
+            InitializeFPSLimiter
         };
+
+        return initializers;
     }
 
     private static void InitializeFPSLimiter(GameObject settingsMenu)
     {
-        MelonLogger.Msg($"Found {settingsMenu}");
         Slider fpsLimiterSliderComponent = GetFPSLimiterSlider(settingsMenu)?.GetComponent<Slider>();
 
         if (fpsLimiterSliderComponent != null)
@@ -27,7 +28,7 @@ public static class Display
         }
         else
         {
-            MelonLogger.Warning("[Settings] FPS Limiter Slider component not found. Failed to change max.");
+            MelonLogger.Warning("[Modules.Settings.Display] FPS Limiter Slider component not found. Failed to change max.");
         }
     }
 
@@ -40,7 +41,7 @@ public static class Display
         }
         else
         {
-            MelonLogger.Warning("[Settings] FPS Limiter GameObject not found. Skipping initialization.");
+            MelonLogger.Warning("[Modules.Settings.Display] FPS Limiter GameObject not found. Skipping initialization.");
             return null;
         }
     }

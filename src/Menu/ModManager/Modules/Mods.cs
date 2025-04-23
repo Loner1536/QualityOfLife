@@ -10,8 +10,6 @@ public static class Mods
     public static List<Action<GameObject>> GetInitializers()
     {
         return new List<Action<GameObject>>
-        {
-            (mainMenu) => MelonLogger.Msg("[ModManager] Initializing Mods...")
-        };
+        { };
     }
 }
