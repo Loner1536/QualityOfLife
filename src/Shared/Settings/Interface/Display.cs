@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
-namespace QualityOfLife.Shared.Settings;
+namespace QualityOfLife.Shared.Settings.Interface;
 
 public static class Display
 {

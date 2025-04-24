@@ -3,7 +3,6 @@ using ScheduleOne.Quests;
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.UI;
-using MelonLoader;
 using System.Reflection;
 using System.Collections.Generic;
 
