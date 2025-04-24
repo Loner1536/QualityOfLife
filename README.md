@@ -60,7 +60,9 @@ A collection of quality-of-life improvements for **Schedule I**, designed to enh
 ## Credits
 
 **Developer**: [Loner1536](https://github.com/Loner1536)
-**Camera Tilt for Movement**: Inspired by and adapted from work by [savvvvvvvv](https://next.nexusmods.com/profile/savvvvvvvv?gameId=7381) on Nexus Mods.
+
+**Camera Tilt for Movement**:
+Inspired by and adapted from work by [savvvvvvvv](https://next.nexusmods.com/profile/savvvvvvvv?gameId=7381) on Nexus Mods.
 
 ---
 
