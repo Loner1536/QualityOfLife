@@ -31,10 +31,10 @@ public static class Core
             if (settingsMenu != null)
             {
                 var allActions = new List<Action<GameObject>>();
-                allActions.AddRange(QualityOfLife.Shared.Settings.Graphics.GetInitializers());
-                allActions.AddRange(QualityOfLife.Shared.Settings.Controls.GetInitializers());
-                allActions.AddRange(QualityOfLife.Shared.Settings.Display.GetInitializers());
-                allActions.AddRange(QualityOfLife.Shared.Settings.Audio.GetInitializers());
+                allActions.AddRange(Interface.Graphics.GetInitializers());
+                allActions.AddRange(Interface.Controls.GetInitializers());
+                allActions.AddRange(Interface.Display.GetInitializers());
+                allActions.AddRange(Interface.Audio.GetInitializers());
 
                 foreach (var action in allActions)
                 {
