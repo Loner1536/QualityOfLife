@@ -1,31 +1,70 @@
-# Description
+# Quality of Life Mod for Schedule I
 
-This mod enhances your gaming experience with several quality-of-life improvements:
-- **Button Fades**: Adds a smooth fade effect to buttons, making the UI more visually appealing.
-- **Higher FPS Limit (up to 360 FPS)**: Removes the default FPS cap and allows the game to run up to 360 frames per second, ensuring a smoother experience for those with high-refresh-rate monitors.
-- **Enhances Icons**: Each drug type has a different color and icon. (in the future I want to make it customizable)
-- **Always Show Contract Distance**: Displays the distance to your contract permanently on the compass for better navigation.
-- **Fast Stack Tweak**: Adds Ctrl + Mouse Wheel to increment or decrement stack counts by 5 per scroll step. In the future I plan to add it where you can also do Ctrl + Shift + Right-Click to quick move 5 from the stack.
+A collection of quality-of-life improvements for **Schedule I**, designed to enhance gameplay, UI, and control feel without breaking immersion.
 
-## Previews
+---
 
-Soon!
+## Features
+
+### Camera Tilt for Movement
+- Dynamic camera tilt based on movement input:
+  - `A` / `D`: Left / Right tilt
+  - `W` / `S`: Forward / Backward tilt
+- Adds immersive feedback during player movement.
+
+### Button Fade Effects
+- Smooth fade-in/out animations on UI buttons for a cleaner, more modern interface.
+
+### Increased FPS Limit
+- Removes the default FPS cap, allowing up to **360 FPS** for smoother visuals on high-refresh-rate displays.
+
+### Enhanced Contracts / Deals
+- **Always Show Contract Distance**: The compass always displays the distance to your active contract — no need to aim at it.
+- **Enhanced Drug Icons**: Each drug type has a unique icon and color for faster identification.
+  *(Future update may allow for full customization.)*
+
+### Fast Stack Tweak
+- `Ctrl + Mouse Wheel`: Adds or removes **5** items from a stack per scroll.
+
+---
+
+## Work In Progress
+
+- **Mod Manager Integration**:
+  UI enhancements and visual improvements for the in-game Mod Manager are currently being developed.
+
+- **Fast Stack Tweak**
+  - `Ctrl + Shift + Right-Click`: Quickly move 5 items from a stack.
+
+---
 
 ## Installation
 
-1. Download the mod from the [Releases section](https://github.com/Loner1536/QualityOfLife/releases).
-2. Make sure you have **MelonLoader** installed.
-3. Place the downloaded `.dll` file into the **Mods** folder provided by MelonLoader.
-4. Launch the game, and the mod should be active.
+1. Download the latest release from the [Releases page](https://github.com/Loner1536/QualityOfLife/releases).
+2. Ensure **MelonLoader** is installed in your game directory.
+3. Place the `.dll` file in the `Mods` folder created by MelonLoader.
+4. Launch the game — the mod will load automatically.
+
+---
 
 ## Compatibility
 
-This mod is compatible with any version of Schedule I that is using Mono and MelonLoader, But I recommend your game is updated to the latest patch for optimal performance.
+- Fully compatible with any **Mono + MelonLoader** version of Schedule I.
+- For best results, update your game to the **latest patch**.
+
+---
 
 ## Credits
 
-- **Developer**: Loner
+**Developer**: [Loner1536](https://github.com/Loner1536)
+
+---
 
 ## License
 
-No specific license. You are free to use and modify the mod, but please don't directly copy the code.
+This mod is free to use and modify.
+Please do not redistribute the source code without proper credit.
+
+---
+
+Thanks for checking it out!
