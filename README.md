@@ -1,5 +1,7 @@
 # Quality of Life Mod for Schedule I
 
+If any of the features in this mod are similar to or inspired by other mods, I welcome and encourage the original authors to reach out to me. If I have unintentionally used elements from your mod or taken inspiration from it, I will be more than happy to give proper credit. Please feel free to contact me directly on Discord @loner71x if you'd like to discuss or request attribution.
+
 A collection of quality-of-life improvements for **Schedule I**, designed to enhance gameplay, UI, and control feel without breaking immersion.
 
 ---
