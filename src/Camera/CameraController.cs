@@ -1,8 +1,7 @@
-using UnityEngine;
-using MelonLoader;
 using ScheduleOne.DevUtilities;
 using ScheduleOne.PlayerScripts;
 using ScheduleOne.UI;
+using UnityEngine;
 
 namespace QualityOfLife.Camera;
 
@@ -16,9 +15,9 @@ public static class CameraController
     private static float zRotation, xRotation;
     private static float zVelocity, xVelocity;
     private static float targetZRotation, targetXRotation;
-    private static bool initialized;
     private static bool inConsole;
 
+    private static UnityEngine.Camera mainCamera;
     public static bool JustGainedFocus;
 
     public static void Update()
@@ -29,17 +28,14 @@ public static class CameraController
             return;
         }
 
-        if (!initialized)
+        if (!crosshair && !mainCamera)
         {
-            var crosshairObject = GameObject.Find("UI/HUD/Crosshair");
-            if (crosshairObject != null)
-            {
-                crosshair = crosshairObject;
-                cameraTransform = UnityEngine.Camera.main?.transform;
-                initialized = true;
-            }
+            crosshair = GameObject.Find("UI/HUD/Crosshair");
+            mainCamera = UnityEngine.Camera.main;
+            cameraTransform = mainCamera?.transform;
         }
 
+        // Ensure camera and crosshair are properly initialized
         if (crosshair == null || !crosshair.activeSelf || cameraTransform == null || playerCam?.ViewingAvatar == true)
             return;
 
