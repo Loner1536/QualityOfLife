@@ -11,6 +11,7 @@ A collection of quality-of-life improvements for **Schedule I**, designed to enh
   - `A` / `D`: Left / Right tilt
   - `W` / `S`: Forward / Backward tilt
 - Adds immersive feedback during player movement.
+- **Credit**: This feature was inspired by and adapted from work by [savvvvvvvv](https://next.nexusmods.com/profile/savvvvvvvv?gameId=7381) on Nexus Mods.
 
 ### Button Fade Effects
 - Smooth fade-in/out animations on UI buttons for a cleaner, more modern interface.
@@ -57,6 +58,7 @@ A collection of quality-of-life improvements for **Schedule I**, designed to enh
 ## Credits
 
 **Developer**: [Loner1536](https://github.com/Loner1536)
+**Camera Tilt for Movement**: Inspired by and adapted from work by [savvvvvvvv](https://next.nexusmods.com/profile/savvvvvvvv?gameId=7381) on Nexus Mods.
 
 ---
 
