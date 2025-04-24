@@ -3,7 +3,7 @@ using ScheduleOne.PlayerScripts;
 using ScheduleOne.UI;
 using UnityEngine;
 
-namespace QualityOfLife.Camera;
+namespace QualityOfLife._Player.Camera;
 
 public static class CameraController
 {

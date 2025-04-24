@@ -4,7 +4,7 @@ using ScheduleOne.DevUtilities;
 using ScheduleOne.PlayerScripts;
 using ScheduleOne.UI;
 
-namespace QualityOfLife.Camera;
+namespace QualityOfLife._Player.Camera;
 
 public static class CameraInit
 {

@@ -1,4 +1,4 @@
-namespace QualityOfLife.Camera;
+namespace QualityOfLife._Player.Camera;
 
 public static class CameraFocusHandler
 {
