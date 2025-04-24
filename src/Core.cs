@@ -36,11 +36,11 @@ namespace QualityOfLife
                     {
                         (pauseMenu, scene) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(pauseMenu),
                         (pauseMenu, scene) => QualityOfLife.Shared.Settings.Core.Initialize(pauseMenu, scene),
-                        (_, _) => QualityOfLife.Camera.Core.Initialize()
+                        (_, _) => QualityOfLife._Player.Camera.Core.Initialize()
                     },
                     CleanupActions = new()
                     {
-                        (_) => QualityOfLife.Camera.Core.Destory()
+                        (_) => QualityOfLife._Player.Camera.Core.Destory()
                     }
                 },
                 ["Tutorial"] = new SceneInitSet("UI/PauseMenu/Container")
@@ -49,11 +49,11 @@ namespace QualityOfLife
                     {
                         (pauseMenu, scene) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(pauseMenu),
                         (pauseMenu, scene) => QualityOfLife.Shared.Settings.Core.Initialize(pauseMenu, scene),
-                        (_, _) => QualityOfLife.Camera.Core.Initialize()
+                        (_, _) => QualityOfLife._Player.Camera.Core.Initialize()
                     },
                     CleanupActions = new()
                     {
-                        (_) => QualityOfLife.Camera.Core.Destory()
+                        (_) => QualityOfLife._Player.Camera.Core.Destory()
                     }
                 },
             };
@@ -64,7 +64,7 @@ namespace QualityOfLife
                 {
                     Actions = new()
                     {
-                        () => QualityOfLife.Camera.Core.OnLateUpdate()
+                        () => QualityOfLife._Player.Camera.Core.OnLateUpdate()
                     }
                 },
             };
