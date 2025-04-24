@@ -46,6 +46,7 @@ A collection of quality-of-life improvements for **Schedule I**, designed to enh
 1. Download the latest release from the [Releases page](https://github.com/Loner1536/QualityOfLife/releases).
 2. Ensure **MelonLoader** is installed in your game directory.
 3. Place the `.dll` file in the `Mods` folder created by MelonLoader.
+4. Place the `UserData` folder inside the `game directory`.
 4. Launch the game — the mod will load automatically.
 
 ---

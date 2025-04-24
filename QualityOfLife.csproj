@@ -10,7 +10,6 @@
     <Compile Include="src/**/*.cs" />
   </ItemGroup>
 
-
   <ItemGroup>
     <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     <PackageReference Include="Lib.Harmony" Version="2.3.5" />
@@ -53,13 +52,28 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec
-            Command="
-      pkill -f 'Schedule I'
-      cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'
-      steam steam://rungameid/3164500
-    "
+    <Exec Command="pkill -f 'Schedule I' || true" />
+    <MakeDir
+            Directories="$(MSBuildProjectDirectory)/release/tmp/QualityOfLife/Mods"
         />
+    <MakeDir
+            Directories="$(MSBuildProjectDirectory)/release/tmp/QualityOfLife/UserData"
+        />
+    <Copy
+            SourceFiles="$(TargetPath)"
+            DestinationFolder="$(MSBuildProjectDirectory)/release/tmp/QualityOfLife/Mods/"
+        />
+    <Exec
+            Command="cp -r '/home/william/.local/share/Steam/steamapps/common/Schedule I/UserData/QualityOfLife' '$(MSBuildProjectDirectory)/release/tmp/QualityOfLife/UserData/'"
+        />
+    <Exec
+            Command="cd '$(MSBuildProjectDirectory)/release/tmp' &amp;&amp; zip -r ../QualityOfLife.zip QualityOfLife/"
+        />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)/release/tmp" />
+    <Exec
+            Command="cp '$(TargetPath)' '/home/william/.local/share/Steam/steamapps/common/Schedule I/Mods/$(TargetFileName)'"
+        />
+    <Exec Command="steam steam://rungameid/3164500" />
   </Target>
 
 </Project>
