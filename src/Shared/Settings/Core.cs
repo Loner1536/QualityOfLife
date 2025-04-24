@@ -3,9 +3,9 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace QualityOfLife.Shared;
+namespace QualityOfLife.Shared.Settings;
 
-public static class Settings
+public static class Core
 {
     public static void Initialize(GameObject root, string sceneName)
     {
@@ -31,10 +31,10 @@ public static class Settings
             if (settingsMenu != null)
             {
                 var allActions = new List<Action<GameObject>>();
-                allActions.AddRange(QualityOfLife.Modules.Settings.Display.GetInitializers());
-                allActions.AddRange(QualityOfLife.Modules.Settings.Graphics.GetInitializers());
-                allActions.AddRange(QualityOfLife.Modules.Settings.Audio.GetInitializers());
-                allActions.AddRange(QualityOfLife.Modules.Settings.Controls.GetInitializers());
+                allActions.AddRange(QualityOfLife.Shared.Settings.Graphics.GetInitializers());
+                allActions.AddRange(QualityOfLife.Shared.Settings.Controls.GetInitializers());
+                allActions.AddRange(QualityOfLife.Shared.Settings.Display.GetInitializers());
+                allActions.AddRange(QualityOfLife.Shared.Settings.Audio.GetInitializers());
 
                 foreach (var action in allActions)
                 {

@@ -12,7 +12,6 @@ public class Core
 
     public static void Initilize()
     {
-        MelonLogger.Msg($"[IconLoader] Initializing IconLoader...");
         categoryLoaders["Drug"] = DrugIconLoader.LoadIcons;
 
         foreach (var categoryPair in categoryLoaders)
@@ -24,14 +23,12 @@ public class Core
             if (icons != null && icons.Count > 0)
             {
                 loadedIcons[categoryName] = icons;
-                MelonLogger.Msg($"[IconLoader] Loaded {icons.Count} icons for category: {categoryName}");
             }
             else
             {
                 MelonLogger.Warning($"[IconLoader] No icons loaded for category: {categoryName}");
             }
         }
-        MelonLogger.Msg($"[IconLoader] Total icon categories loaded: {loadedIcons.Count}");
     }
 
     public static Sprite GetIcon(string category, string iconName)

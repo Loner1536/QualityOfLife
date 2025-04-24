@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using MelonLoader;
 using UnityEngine;
 
-namespace QualityOfLife.Modules.ModManager;
+namespace QualityOfLife.Shared.Settings;
 
-public static class Mods
+public static class Audio
 {
     public static List<Action<GameObject>> GetInitializers()
     {
-        return new List<Action<GameObject>>
+        var initializers = new List<Action<GameObject>>
         { };
+
+        return initializers;
     }
 }

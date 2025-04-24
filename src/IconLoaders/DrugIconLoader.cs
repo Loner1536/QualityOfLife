@@ -30,7 +30,6 @@ public static class DrugIconLoader
                 drugIcons[fileNameWithoutExtension] = TextureToSprite(texture);
             }
         }
-        MelonLogger.Msg($"[DrugIconLoader] Loaded {drugIcons.Count} icons.");
         return drugIcons;
     }
 

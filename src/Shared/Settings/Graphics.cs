@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using MelonLoader;
 using UnityEngine;
 
-namespace QualityOfLife.Modules.Settings;
+namespace QualityOfLife.Shared.Settings;
 
-public static class Audio
+public static class Graphics
 {
     public static List<Action<GameObject>> GetInitializers()
     {

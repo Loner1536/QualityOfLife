@@ -6,9 +6,9 @@ using UnityEngine.UI;
 using ScheduleOne.UI.MainMenu;
 using TMPro;
 
-namespace QualityOfLife.Menu;
+namespace QualityOfLife.Menu.ModManager;
 
-public class ModManager
+public class Core
 {
     public static List<Action<GameObject>> GetInitializers()
     {
@@ -18,7 +18,7 @@ public class ModManager
             RearrangeMenu,
         };
 
-        initializers.AddRange(QualityOfLife.Modules.ModManager.Mods.GetInitializers());
+        initializers.AddRange(QualityOfLife.Menu.ModManager.Mods.GetInitializers());
         return initializers;
     }
 

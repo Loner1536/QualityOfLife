@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MelonLoader;
 using UnityEngine;
 
-namespace QualityOfLife.Modules.ModManager
+namespace QualityOfLife.Menu.ModManager
 {
     public static class Config
     {

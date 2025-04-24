@@ -12,7 +12,7 @@ public static class Core
         if (mainMenu != null)
         {
             var allActions = new List<Action<GameObject>>();
-            allActions.AddRange(QualityOfLife.Menu.ModManager.GetInitializers());
+            allActions.AddRange(QualityOfLife.Menu.ModManager.Core.GetInitializers());
 
             foreach (var action in allActions)
             {

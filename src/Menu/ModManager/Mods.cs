@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using MelonLoader;
 using UnityEngine;
 
-namespace QualityOfLife.Modules.Settings;
+namespace QualityOfLife.Menu.ModManager;
 
-public static class Graphics
+public static class Mods
 {
     public static List<Action<GameObject>> GetInitializers()
     {
-        var initializers = new List<Action<GameObject>>
+        return new List<Action<GameObject>>
         { };
-
-        return initializers;
     }
 }
