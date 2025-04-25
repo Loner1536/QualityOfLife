@@ -1,0 +1,13 @@
+{
+  "FormattingOptions": {
+    "TabSize": 4,
+    "IndentationStyle": "Block",
+    "InsertSpaces": true,
+    "NewLine": "\n",
+    "PlaceSystemNamespaceFirst": true,
+    "AlignArrayDeclaration": true,
+    "SpacesWithinBrackets": false,
+    "IndentBraces": true,
+    "FormatOnSave": true
+  }
+}

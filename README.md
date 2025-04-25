@@ -9,6 +9,7 @@ A collection of quality-of-life improvements for **Schedule I**, designed to enh
 ## Features
 
 ### Camera Tilt for Movement
+
 - Dynamic camera tilt based on movement input:
   - `A` / `D`: Left / Right tilt
   - `W` / `S`: Forward / Backward tilt
@@ -16,17 +17,21 @@ A collection of quality-of-life improvements for **Schedule I**, designed to enh
 - **Credit**: This feature was inspired by and adapted from work by [savvvvvvvv](https://next.nexusmods.com/profile/savvvvvvvv?gameId=7381) on Nexus Mods.
 
 ### Button Fade Effects
+
 - Smooth fade-in/out animations on UI buttons for a cleaner, more modern interface.
 
 ### Increased FPS Limit
+
 - Removes the default FPS cap, allowing up to **360 FPS** for smoother visuals on high-refresh-rate displays.
 
 ### Enhanced Contracts / Deals
+
 - **Always Show Contract Distance**: The compass always displays the distance to your active contract — no need to aim at it.
 - **Enhanced Drug Icons**: Each drug type has a unique icon and color for faster identification.
-  *(Future update may allow for full customization.)*
+  _(Future update may allow for full customization.)_
 
 ### Fast Stack Tweak
+
 - `Ctrl + Mouse Wheel`: Adds or removes **5** items from a stack per scroll.
 
 ---
@@ -47,7 +52,7 @@ A collection of quality-of-life improvements for **Schedule I**, designed to enh
 2. Ensure **MelonLoader** is installed in your game directory.
 3. Place the `.dll` file in the `Mods` folder created by MelonLoader.
 4. Place the `UserData` folder inside the `game directory`.
-4. Launch the game — the mod will load automatically.
+5. Launch the game — the mod will load automatically.
 
 ---
 

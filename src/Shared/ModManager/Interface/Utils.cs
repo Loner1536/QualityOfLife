@@ -1,23 +1,38 @@
 using UnityEngine;
 using MelonLoader;
 
-namespace QualityOfLife.Menu.ModManager.Interface;
-
-public static class Utils
+namespace QualityOfLife.Menu.ModManager.Interface
 {
-    public static void RearrangeMenu(GameObject mainMenu)
+    public static class Utils
     {
-        string[] buttonPaths = { "Home/Bank/Settings", "Home/Bank/Credits", "Home/Bank/Quit" };
-
-        foreach (string path in buttonPaths)
+        public static void RearrangeMenu(GameObject root)
         {
-            Transform button = mainMenu.transform.Find(path);
-            if (button != null && button.TryGetComponent(out RectTransform rect))
-                rect.anchoredPosition -= new Vector2(0, 40);
-            else if (button != null)
-                MelonLogger.Warning($"[ModManager] Failed to get RectTransform for {path}!");
-            else
-                MelonLogger.Warning($"[ModManager] Failed to find {path} in Main Menu!");
+            GameObject[] buttons = {
+                FindFirstValid(root.transform, "Home/Bank/Settings", "Container/Bank/Settings"),
+                FindFirstValid(root.transform, "Home/Bank/Credits", "Container/Bank/Stuck"),
+                FindFirstValid(root.transform, "Home/Bank/Quit", "Container/Bank/Quit"),
+                root.transform.Find("Container/Bank/Feedback")?.gameObject
+            };
+
+            foreach (GameObject button in buttons)
+            {
+                if (button != null)
+                {
+                    if (button.TryGetComponent(out RectTransform rect))
+                    {
+                        rect.anchoredPosition -= new Vector2(0, 40);
+                    }
+                    else
+                    {
+                        MelonLogger.Warning($"[ModManager] Failed to get RectTransform for '{button.name}'!");
+                    }
+                }
+            }
+        }
+
+        public static GameObject FindFirstValid(Transform root, string path1, string path2)
+        {
+            return root.Find(path1)?.gameObject ?? root.Find(path2)?.gameObject;
         }
     }
 }

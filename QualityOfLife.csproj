@@ -13,14 +13,11 @@
   <ItemGroup>
     <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     <PackageReference Include="Lib.Harmony" Version="2.3.5" />
-    <PackageReference
-            Include="BepInEx.AssemblyPublicizer.MSBuild"
-            Version="0.5.0-beta.1"
-            PrivateAssets="all"
-        />
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.5.0-beta.1" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Ensure paths to DLLs are correct -->
     <Reference Include="Assembly-CSharp">
       <HintPath>libs/Assembly-CSharp.dll</HintPath>
       <Publicize>true</Publicize>

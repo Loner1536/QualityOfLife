@@ -22,8 +22,6 @@ namespace QualityOfLife.Preferences
             mouseTiltSpeed = category.CreateEntry("Mouse Tilt Speed", 0.01f, "Camera Mouse Tilt Speed");
             smoothTime = category.CreateEntry("Smooth Time", 0.1f, "Camera Smooth Time");
             walkTilt = category.CreateEntry("Walk Tilt", 3f, "Camera Walk Tilt");
-
-            category.SaveToFile();
         }
     }
 }

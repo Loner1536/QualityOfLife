@@ -2,55 +2,74 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using MelonLoader;
+using System;
 
-namespace QualityOfLife.Menu.ModManager.Interface;
+using ScheduleOne.UI.MainMenu;
 
-public static class ModManagerButton
+namespace QualityOfLife.Menu.ModManager.Interface
 {
-    public static void Setup(GameObject mainMenu)
+    public static class ModManagerButton
     {
-        GameObject settingsButton = mainMenu.transform.Find("Home/Bank/Settings")?.gameObject;
-        GameObject settingsScreen = mainMenu.transform.Find("Settings")?.gameObject;
+        private static readonly Action<GameObject> OnModManagerButtonClicked = HandleModManagerButtonClicked;
 
-        if (settingsButton == null || settingsScreen == null)
+        public static void Setup(GameObject root, string sceneName)
         {
-            MelonLogger.Warning("[ModManager] Failed to find Settings button or screen!");
-            return;
-        }
+            var settingsButton = Utils.FindFirstValid(root.transform, "Home/Bank/Settings", "Container/Bank/Settings");
+            var settingsScreen = Utils.FindFirstValid(root.transform, "Settings", "SettingsScreen_Ingame");
 
-        settingsScreen.SetActive(true);
-        GameObject modManagerScreen = ModManagerScreen.Create(settingsScreen);
-        settingsScreen.SetActive(false);
-
-        CreateButton(settingsButton, modManagerScreen);
-    }
-
-    private static void CreateButton(GameObject settingsButton, GameObject modManagerScreen)
-    {
-        GameObject modManagerButton = GameObject.Instantiate(settingsButton, settingsButton.transform.parent, false);
-        if (modManagerButton == null)
-        {
-            MelonLogger.Warning("[ModManager] Failed to clone Settings button!");
-            return;
-        }
-
-        modManagerButton.name = "ModManager";
-        modManagerButton.transform.SetSiblingIndex(3);
-
-        if (modManagerButton.TryGetComponent(out Button button))
-        {
-            button.onClick = new Button.ButtonClickedEvent();
-            button.onClick.AddListener(() =>
+            if (settingsButton == null || settingsScreen == null)
             {
-                if (modManagerScreen.TryGetComponent(out ScheduleOne.UI.MainMenu.SettingsScreen screen))
-                    screen.Open(true);
-                else
-                    MelonLogger.Warning("[ModManager] Failed to find SettingsScreen on Mod Manager Screen!");
-            });
+                MelonLogger.Warning("[ModManager] Failed to find Settings button or screen!");
+                return;
+            }
+
+            root.SetActive(true);
+            settingsScreen.SetActive(true);
+            var modManagerScreen = ModManagerScreen.Create(settingsScreen);
+            settingsScreen.SetActive(false);
+
+            CreateModManagerButton(settingsButton, modManagerScreen);
         }
 
-        GameObject modManagerText = modManagerButton.transform.Find("TextContainer/Text").gameObject;
-        if (modManagerText != null && modManagerText.TryGetComponent(out TextMeshProUGUI text))
-            text.text = "Mod Manager";
+        private static void CreateModManagerButton(GameObject templateButton, GameObject modManagerScreen)
+        {
+            var modManagerButton = GameObject.Instantiate(templateButton, templateButton.transform.parent, false);
+            if (modManagerButton == null)
+            {
+                MelonLogger.Warning("[ModManager] Failed to clone Settings button!");
+                return;
+            }
+
+            modManagerButton.name = "ModManager";
+            modManagerButton.transform.SetSiblingIndex(3);
+
+            if (modManagerButton.TryGetComponent(out Button modManagerButtonComponent))
+            {
+                modManagerButtonComponent.onClick = new Button.ButtonClickedEvent();
+                modManagerButtonComponent.onClick.AddListener(() => HandleModManagerButtonClicked(modManagerScreen));
+            }
+
+            var textObject = modManagerButton.transform.Find("TextContainer/Text")?.gameObject;
+            if (textObject?.TryGetComponent(out TextMeshProUGUI text) == true)
+            {
+                text.text = "Mod Manager";
+            }
+            else
+            {
+                MelonLogger.Warning("[ModManager] Could not set button text.");
+            }
+        }
+
+        private static void HandleModManagerButtonClicked(GameObject modManagerScreen)
+        {
+            if (modManagerScreen.TryGetComponent(out SettingsScreen screen))
+            {
+                screen.Open(true);
+            }
+            else
+            {
+                MelonLogger.Warning("[ModManager] Failed to find SettingsScreen on Mod Manager Screen!");
+            }
+        }
     }
 }

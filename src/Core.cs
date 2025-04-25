@@ -15,7 +15,6 @@ namespace QualityOfLife
         {
             MelonLogger.Msg($"{QualityOfLife.BuildInfo.Name} {QualityOfLife.BuildInfo.Version} initializing...");
 
-            // Initialize sceneInitTable (Scene initialization actions)
             sceneInitTable = new Dictionary<string, SceneInitSet>
             {
                 ["Menu"] = new SceneInitSet("MainMenu")
@@ -24,7 +23,11 @@ namespace QualityOfLife
                     {
                         (mainMenu, _) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(mainMenu),
                         (mainMenu, scene) => QualityOfLife.Shared.Settings.Core.Initialize(mainMenu, scene),
-                        (mainMenu, _) => QualityOfLife.Menu.Core.Initialize(mainMenu),
+                        (mainMenu, scene) =>
+                        {
+                            foreach (var action in QualityOfLife.Menu.ModManager.Core.GetInitializers())
+                                action?.Invoke(mainMenu, scene);
+                        },
                         (_, _) => QualityOfLife.IconLoaders.Core.Initilize()
                     },
                     CleanupActions = new()
@@ -36,6 +39,11 @@ namespace QualityOfLife
                     {
                         (pauseMenu, scene) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(pauseMenu),
                         (pauseMenu, scene) => QualityOfLife.Shared.Settings.Core.Initialize(pauseMenu, scene),
+                        (pauseMenu, scene) =>
+                        {
+                            foreach (var action in QualityOfLife.Menu.ModManager.Core.GetInitializers())
+                                action?.Invoke(pauseMenu, scene);
+                        },
                         (_, _) => QualityOfLife._Player.Camera.Core.Initialize()
                     },
                     CleanupActions = new()
@@ -49,6 +57,11 @@ namespace QualityOfLife
                     {
                         (pauseMenu, scene) => QualityOfLife.Utils.UI.Fading.FadeDependenciesButtons(pauseMenu),
                         (pauseMenu, scene) => QualityOfLife.Shared.Settings.Core.Initialize(pauseMenu, scene),
+                        (pauseMenu, scene) =>
+                        {
+                            foreach (var action in QualityOfLife.Menu.ModManager.Core.GetInitializers())
+                                action?.Invoke(pauseMenu, scene);
+                        },
                         (_, _) => QualityOfLife._Player.Camera.Core.Initialize()
                     },
                     CleanupActions = new()
@@ -81,7 +94,6 @@ namespace QualityOfLife
                 }
             }
         }
-
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
