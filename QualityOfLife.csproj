@@ -13,7 +13,11 @@
   <ItemGroup>
     <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     <PackageReference Include="Lib.Harmony" Version="2.3.5" />
-    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.5.0-beta.1" PrivateAssets="all" />
+    <PackageReference
+            Include="BepInEx.AssemblyPublicizer.MSBuild"
+            Version="0.5.0-beta.1"
+            PrivateAssets="all"
+        />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +63,14 @@
     <Copy
             SourceFiles="$(TargetPath)"
             DestinationFolder="$(MSBuildProjectDirectory)/release/tmp/QualityOfLife/Mods/"
+        />
+    <Copy
+            SourceFiles="$(MSBuildProjectDirectory)/README.md"
+            DestinationFolder="$(MSBuildProjectDirectory)/release/tmp/QualityOfLife/"
+        />
+    <Copy
+            SourceFiles="$(MSBuildProjectDirectory)/LICENSE.md"
+            DestinationFolder="$(MSBuildProjectDirectory)/release/tmp/QualityOfLife/"
         />
     <Exec
             Command="cp -r '/home/william/.local/share/Steam/steamapps/common/Schedule I/UserData/QualityOfLife' '$(MSBuildProjectDirectory)/release/tmp/QualityOfLife/UserData/'"
