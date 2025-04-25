@@ -72,11 +72,4 @@ Inspired by and adapted from work by [savvvvvvvv](https://next.nexusmods.com/pro
 
 ---
 
-## License
-
-This mod is free to use and modify.
-Please do not redistribute the source code without proper credit.
-
----
-
 Thanks for checking it out!
