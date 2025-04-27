@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System.Reflection;
 using System.Collections.Generic;
 
-using QualityOfLife.Utils.Products;
+using QualityOfLife.Utility.Products;
 
 namespace QualityOfLife.Patches;
 
@@ -110,7 +110,7 @@ public class ContractCheckExpiryPatch
             {
                 if (drugType == "weed")
                 {
-                    Sprite weedIcon = IconLoaders.Core.GetIcon("Drug", "weedIcon");
+                    Sprite weedIcon = Interface.IconLoaders.Core.GetIcon("Drug", "weedIcon");
                     if (weedIcon != null)
                     {
                         image.sprite = weedIcon;
@@ -121,7 +121,7 @@ public class ContractCheckExpiryPatch
                 }
                 else if (drugType == "meth")
                 {
-                    Sprite methIcon = IconLoaders.Core.GetIcon("Drug", "methIcon");
+                    Sprite methIcon = Interface.IconLoaders.Core.GetIcon("Drug", "methIcon");
                     if (methIcon != null)
                     {
                         image.sprite = methIcon;
@@ -131,7 +131,7 @@ public class ContractCheckExpiryPatch
                 }
                 else if (drugType == "cocaine")
                 {
-                    Sprite cocaineIcon = IconLoaders.Core.GetIcon("Drug", "cocaineIcon");
+                    Sprite cocaineIcon = Interface.IconLoaders.Core.GetIcon("Drug", "cocaineIcon");
                     if (cocaineIcon != null)
                     {
                         image.sprite = cocaineIcon;

@@ -1,0 +1,72 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/william/Dev/Schedule I/Test/QualityOfLife.csproj": {}
+  },
+  "projects": {
+    "/home/william/Dev/Schedule I/Test/QualityOfLife.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/william/Dev/Schedule I/Test/QualityOfLife.csproj",
+        "projectName": "QualityOfLife",
+        "projectPath": "/home/william/Dev/Schedule I/Test/QualityOfLife.csproj",
+        "packagesPath": "/home/william/.nuget/packages/",
+        "outputPath": "/home/william/Dev/Schedule I/Test/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/william/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "dependencies": {
+            "BepInEx.AssemblyPublicizer.MSBuild": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[0.5.0-beta.1, )"
+            },
+            "LavaGang.MelonLoader": {
+              "target": "Package",
+              "version": "[0.7.0, )"
+            },
+            "Lib.Harmony": {
+              "target": "Package",
+              "version": "[2.3.5, )"
+            },
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.105/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
